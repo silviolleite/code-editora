@@ -29,4 +29,12 @@ class CategoryRequest extends FormRequest
             'name' => "required|max:255|unique:categories,name,$id"
         ];
     }
+
+    public function attributes()
+    {
+        return [
+            'name' => 'Nome'
+        ];
+    }
+
 }
