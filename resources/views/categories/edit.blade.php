@@ -7,14 +7,15 @@
             {!! Form::model($category, ['route' => ['categories.update', 'category' => $category->id],
                 'class' => 'form', 'method' => 'PUT'])
              !!}
-            <div class="form-group">
+            {!! Html::openFormGroup('name', $errors) !!}
                 {!! Form::label('name', 'Nome') !!}
                 {!! Form::text('name', null, ['class' => 'form-control']) !!}
-            </div>
+                {!! Form::error('name', $errors) !!}
+            {!! Html::closeFormGroup() !!}
 
-            <div class="form-group">
+            {!! Html::openFormGroup() !!}
                 {!! Form::submit('Criar Categoria', ['class' => 'btn btn-primary']) !!}
-            </div>
+            {!! Html::closeFormGroup() !!}
             {!! Form::close() !!}
         </div>
     </div>

@@ -14,6 +14,7 @@
                     <th>Título</th>
                     <th>Subtítulo</th>
                     <th>Preço</th>
+                    <th>Publicado por</th>
                     <th>Ações</th>
                 </tr>
                 </thead>
@@ -24,6 +25,7 @@
                         <td>{{ $book->title }}</td>
                         <td>{{ $book->subtitle }}</td>
                         <td>{{ $book->price }}</td>
+                        <td>{{ $book->User->name }}</td>
                         <td>
                             <ul>
                                 <li><a href="{{ route('books.edit', ['book' => $book->id]) }}">Editar</a></li>
