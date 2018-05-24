@@ -11,7 +11,7 @@
             @include('books._form')
 
             {!! Html::openFormGroup() !!}
-            {!! Form::submit('Salvar Alterações', ['class' => 'btn btn-primary']) !!}
+                {!! Button::primary('Salvar Alterações')->submit() !!}
             {!! Html::closeFormGroup() !!}
             {!! Form::close() !!}
         </div>
