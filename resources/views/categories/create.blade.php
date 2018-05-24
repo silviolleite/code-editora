@@ -5,11 +5,8 @@
         <div class="row">
             <h3>Listagem de Categorias</h3>
             {!! Form::open(['route' => 'categories.store', 'class' => 'form']) !!}
-            {!! Html::openFormGroup('name', $errors) !!}
-                {!! Form::label('name', 'Nome', ['class' => 'control-label']) !!}
-                {!! Form::text('name', null, ['class' => 'form-control']) !!}
-                {!! Form::error('name', $errors) !!}
-            {!! Html::closeFormGroup() !!}
+
+            @include('categories._form')
 
             {!! Html::openFormGroup() !!}
                 {!! Form::submit('Criar Categoria', ['class' => 'btn btn-primary']) !!}
