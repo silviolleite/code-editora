@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,9 +18,24 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Category whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Category extends Model
+class Category extends Model implements TableInterface
 {
     protected $fillable = [
         'name'
     ];
+
+    public function getTableHeaders()
+    {
+        return ['#', 'Nome'];
+    }
+
+    public function getValueForHeader($header)
+    {
+        switch ($header){
+            case '#':
+                return $this->id;
+            case 'Nome':
+                return $this->name;
+        }
+    }
 }

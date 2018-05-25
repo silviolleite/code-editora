@@ -7,37 +7,27 @@
             {!! Button::primary('Nova Categoria')->asLinkTo(route('categories.create')) !!}
         </div>
         <div class="row">
-            <table class="table table-striped">
-                <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Ações</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach($categories as $category)
-                    <tr>
-                        <td>{{ $category->id }}</td>
-                        <td>{{ $category->name }}</td>
-                        <td>
-                            <ul>
-                                <li><a href="{{ route('categories.edit', ['category' => $category->id]) }}">Editar</a></li>
-                                <li>
-                                    <?php $index = "delete-form-{$loop->index}"  ?>
-                                    <a href="{{ route('categories.destroy', ['category' => $category->id]) }}" onclick="event.preventDefault()
-                                            ;document.getElementById('{{ $index }}').submit()">Excluir</a>
-                                    {!! Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'method' => 'DELETE', 'id' => $index, 'style' => 'display:none']) !!}
-                                    {!! Form::close() !!}
-                                </li>
-                            </ul>
+            {!! Table::withContents($categories->items())
+            ->striped()
+            ->bordered()
+            ->callback('Ações', function ($field, $category){
+                $linkEdit = route('categories.edit', ['category' => $category->id]);
+                $linkDestroy = route('categories.destroy', ['category' => $category->id]);
+                $index = "delete-form-{$category->id}";
+                $form = Form::open(['route' => ['categories.destroy', 'category' => $category->id], 'method' => 'DELETE', 'id' => $index, 'style' => 'display:none']).Form::close();
+                $ancorDestroy = Button::link('Excluir')->asLinkTo($linkDestroy)
+                ->addAttributes([
+                    'onclick' => "event.preventDefault();document.getElementById(\"{$index}\").submit()"
+                ]);
+                return '<ul class="list-inline">'.
+                        '<li>'.Button::link('Editar')->asLinkTo($linkEdit).'</li>'.
+                        '<li>|</li>'.
+                        '<li>'.$ancorDestroy.'</li>'.
+                        '</ul>'.
+                        $form;
+            })
+            !!}
 
-
-                        </td>
-                    </tr>
-                @endforeach
-                </tbody>
-            </table>
             {{ $categories->links() }}
         </div>
     </div>
