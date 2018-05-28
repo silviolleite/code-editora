@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Book whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class Book extends Model
+class Book extends Model implements TableInterface
 {
     protected $fillable = [
         'title',
@@ -32,5 +33,26 @@ class Book extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+
+    public function getTableHeaders()
+    {
+        return ['#', 'Titulo', 'Subtitulo', 'Preço', 'Publicado por'];
+    }
+
+    public function getValueForHeader($header)
+    {
+        switch ($header){
+            case '#':
+                return $this->id;
+            case 'Titulo':
+                return $this->title;
+            case 'Subtitulo':
+                return $this->subtitle;
+            case 'Preço':
+                return $this->price;
+            case 'Publicado por':
+                return $this->User->name;
+        }
     }
 }

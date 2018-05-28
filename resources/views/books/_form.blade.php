@@ -1,3 +1,4 @@
+{!! Form::hidden('redirect_to', URL::previous()) !!}
 {!! Html::openFormGroup('title', $errors) !!}
     {!! Form::label('title', 'Nome do Livro') !!}
     {!! Form::text('title', null, ['class' => 'form-control']) !!}
