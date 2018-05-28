@@ -21,43 +21,51 @@
     </script>
 </head>
 <body>
-    <div id="app">
-        <?php
-            $navbar = Navbar::withBrand(config('app.name', 'Editora'), url('/'))->inverse();
-            if(Auth::check()){
-                $links = Navigation::links([
-                    [
-                        'link' => route('categories.index'),
-                        'title' => 'Categoria'
-                    ],
-                    [
-                        'link' => route('books.index'),
-                        'title' => 'Livros'
-                    ]
-                ]);
-            }
-            $logout = Navigation::links([
+<div id="app">
+    <?php
+    if(Auth::check()){
+        $navbar = Navbar::withBrand(config('app.name', 'Editora'), url('/'))->inverse();
+
+        $links = Navigation::links([
+            [
+                'link' => route('categories.index'),
+                'title' => 'Categoria'
+            ],
+            [
+                'link' => route('books.index'),
+                'title' => 'Livros'
+            ]
+        ]);
+
+        $logout = Navigation::links([
+            [
+                Auth::user()->name,
                 [
-                    Auth::user()->name,
                     [
-                        [
-                            'link' => url('/logout'),
-                            'title' => 'Logout',
-                            'linkAttributes' => [
-                                'onclick' => "event.preventDefault();document.getElementById(\"logout-form\").submit();"
-                            ]
+                        'link' => url('/logout'),
+                        'title' => 'Logout',
+                        'linkAttributes' => [
+                            'onclick' => "event.preventDefault();document.getElementById(\"logout-form\").submit();"
                         ]
                     ]
                 ]
-            ])->right();
-            $navbar->withContent($links)->withContent($logout);
-        ?>
+            ]
+        ])->right();
+        $navbar->withContent($links)->withContent($logout);
+    }
+    ?>
+    @if(Auth::check())
         {!! $navbar !!}
-        {!! Form::open(['url' => url('/logout'), 'style' => 'display:none']).Form::close(); !!}
-        @yield('content')
-    </div>
+        {!! Form::open(['url' => url('/logout'), 'style' => 'display:none']) !!}
+        {!! Form::close() !!}
+    @endif
+    @if(Session::has('message'))
+        {!! Alert::success(Session::get('message'))->close() !!}
+    @endif
+    @yield('content')
+</div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
+<!-- Scripts -->
+<script src="/js/app.js"></script>
 </body>
 </html>
