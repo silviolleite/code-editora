@@ -56,7 +56,7 @@
     ?>
     @if(Auth::check())
         {!! $navbar !!}
-        {!! Form::open(['url' => url('/logout'), 'style' => 'display:none']) !!}
+        {!! Form::open(['url' => url('/logout'), 'id' => 'logout-form', 'style' => 'display:none']) !!}
         {!! Form::close() !!}
     @endif
     @if(Session::has('message'))

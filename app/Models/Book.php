@@ -1,6 +1,6 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
 use Illuminate\Database\Eloquent\Model;
@@ -14,13 +14,16 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $price
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Book whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Book whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Book wherePrice($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Book whereSubtitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Book whereTitle($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Book whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book wherePrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book whereSubtitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book whereTitle($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int $user_id
+ * @property-read \App\Models\User $user
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Book whereUserId($value)
  */
 class Book extends Model implements TableInterface
 {
@@ -32,7 +35,7 @@ class Book extends Model implements TableInterface
     ];
 
     public function user(){
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Models\User');
     }
 
     public function getTableHeaders()
