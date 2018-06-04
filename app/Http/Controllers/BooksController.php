@@ -4,9 +4,21 @@ namespace App\Http\Controllers;
 
 use App\Models\Book;
 use App\Http\Requests\BookRequest;
+use App\Repositories\BookRepository;
 
 class BooksController extends Controller
 {
+    /**
+     * @var BookRepository
+     */
+    private $repository;
+
+    public function __construct(BookRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,7 @@ class BooksController extends Controller
      */
     public function index()
     {
-        $books = Book::query()->paginate(15);
+        $books = $this->repository->paginate(15);
         return view('books.index', compact('books'));
     }
 
@@ -36,7 +48,7 @@ class BooksController extends Controller
      */
     public function store(BookRequest $request)
     {
-        Book::create($request->all());
+        $this->repository->create($request->all());
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro cadastrado com sucesso.');
         return redirect()->to($url);
@@ -46,11 +58,12 @@ class BooksController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Book $book
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Book $book)
+    public function edit($id)
     {
+        $book = $this->repository->find($id);
         return view('books.edit', compact('book'));
     }
 
@@ -58,15 +71,12 @@ class BooksController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \App\Http\Requests\BookRequest $request
-     * @param  Book $book
+     * @param Book $book
      * @return \Illuminate\Http\Response
      */
     public function update(BookRequest $request, Book $book)
     {
-        $data = $request->all();
-        $book->fill($data);
-        $book->save();
-
+        $this->repository->update($request->all(), $book->id);
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro alterado com sucesso.');
         return redirect()->to($url);
@@ -75,12 +85,12 @@ class BooksController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Book $book
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Book $book)
+    public function destroy($id)
     {
-        $book->delete();
+        $this->repository->delete($id);
         \Session::flash('message', 'Livro excluído com sucesso.');
         return redirect()->to(\URL::previous());
     }

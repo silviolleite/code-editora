@@ -27,8 +27,10 @@ class BookRequest extends FormRequest
      */
     public function rules()
     {
+        $book= $this->route('book');
+        $id = (isset($book->id))? $book->id: null;
         return [
-            'title' => 'required|max:255|unique:books',
+            'title' => "required|max:255|unique:books,title,$id",
             'subtitle' => 'required|max:255',
             'price' => 'required|numeric'
         ];

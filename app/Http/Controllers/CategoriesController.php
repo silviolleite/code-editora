@@ -4,10 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use App\Http\Requests\CategoryRequest;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoriesController extends Controller
 {
+    /**
+     * @var CategoryRepository
+     */
+    private $repository;
+
+    public function __construct(CategoryRepository $repository)
+    {
+
+        $this->repository = $repository;
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +28,7 @@ class CategoriesController extends Controller
      */
     public function index()
     {
-        $categories = Category::query()->paginate(15);
+        $categories = $this->repository->paginate(10);
         return view('categories.index', compact('categories'));
     }
 
@@ -37,7 +50,7 @@ class CategoriesController extends Controller
      */
     public function store(CategoryRequest $request)
     {
-        Category::create($request->all());
+        $this->repository->create($request->all());
         $url = $request->get('redirect_to', route('categories.index'));
         $request->session()->flash('message', 'Categoria cadastrada com sucesso.');
         return redirect()->to($url);
@@ -47,26 +60,25 @@ class CategoriesController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  Category $category
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Category $category)
+    public function edit($id)
     {
+        $category = $this->repository->find($id);
         return view('categories.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\CategoryRequest  $request
-     * @param  Category $category
+     * @param  \App\Http\Requests\CategoryRequest $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(CategoryRequest $request, Category $category)
+    public function update(CategoryRequest $request, $id)
     {
-        $data = $request->all();
-        $category->fill($data);
-        $category->save();
+        $this->repository->update($request->all(), $id);
         $url = $request->get('redirect_to', route('categories.index'));
         $request->session()->flash('message', 'Categoria alterada com sucesso.');
         return redirect()->to($url);
@@ -75,12 +87,12 @@ class CategoriesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  Category $category
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Category $category)
+    public function destroy($id)
     {
-        $category->delete();
+        $this->repository->delete($id);
         \Session::flash('message', 'Categoria excluída com sucesso.');
         return redirect()->to(\URL::previous());
     }

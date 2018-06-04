@@ -4,14 +4,14 @@ namespace App\Repositories;
 
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
-use App\Models\Category;
+use App\Models\Book;
 
 /**
- * Class CategoryRepositoryEloquent.
+ * Class BookRepositoryEloquent.
  *
  * @package namespace App\Repositories;
  */
-class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepository
+class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
     /**
      * Specify Model class name
@@ -20,7 +20,7 @@ class CategoryRepositoryEloquent extends BaseRepository implements CategoryRepos
      */
     public function model()
     {
-        return Category::class;
+        return Book::class;
     }
 
     
