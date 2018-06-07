@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Criteria\FindByAuthorCriteria;
-use App\Criteria\FindByTitleCriteria;
 use App\Http\Requests\BookRequest;
 use App\Http\Requests\BookUpdateRequest;
 use App\Repositories\BookRepository;
+use Illuminate\Http\Request;
 
 class BooksController extends Controller
 {
@@ -26,12 +25,11 @@ class BooksController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $this->repository->pushCriteria(new FindByTitleCriteria('Teste'))
-            ->pushCriteria(new FindByAuthorCriteria());
+        $search = $request->get('search');
         $books = $this->repository->paginate(15);
-        return view('books.index', compact('books'));
+        return view('books.index', compact('books', 'search'));
     }
 
     /**

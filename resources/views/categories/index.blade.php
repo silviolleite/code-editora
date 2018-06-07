@@ -7,6 +7,15 @@
             {!! Button::primary('Nova Categoria')->asLinkTo(route('categories.create')) !!}
         </div>
         <div class="row">
+            <div class="col-md-12">
+                {!! Form::model(compact('search'), ['class' => 'form-inline', 'method' => 'GET']) !!}
+                {!! Form::label('search', 'Pesquisar Categorias: ', ['class' => 'control-label']) !!}
+                {!! Form::text('search', null, ['class' => 'form-control', 'autofocus']) !!}
+                {!! Button::primary('Buscar')->submit() !!}
+                {!! Form::close()!!}
+            </div>
+        </div>
+        <div class="row">
             {!! Table::withContents($categories->items())
             ->striped()
             ->bordered()

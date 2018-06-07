@@ -7,6 +7,15 @@
             {!! Button::primary('Novo Livro')->asLinkTo(route('books.create')) !!}
         </div>
         <div class="row">
+            <div class="col-md-12">
+                {!! Form::model(compact('search'), ['class' => 'form-inline', 'method' => 'GET']) !!}
+                    {!! Form::label('search', 'Pesquisar livros: ', ['class' => 'control-label']) !!}
+                    {!! Form::text('search', null, ['class' => 'form-control', 'autofocus']) !!}
+                    {!! Button::primary('Buscar')->submit() !!}
+                {!! Form::close()!!}
+            </div>
+        </div>
+        <div class="row">
             {!! Table::withContents($books->items())
             ->striped()
             ->bordered()

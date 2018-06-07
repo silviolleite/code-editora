@@ -13,6 +13,10 @@ use App\Models\Book;
  */
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
+    protected $fieldSearchable = [
+      'title' => 'like',
+        'user.name'
+    ];
     /**
      * Specify Model class name
      *
