@@ -55,7 +55,7 @@ class Book extends Model implements TableInterface
             case 'Preço':
                 return $this->price;
             case 'Publicado por':
-                return $this->User->name;
+                return $this->user->name;
         }
     }
 }

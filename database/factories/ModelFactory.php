@@ -32,11 +32,14 @@ $factory->define(App\Models\Category::class, function (Faker\Generator $faker) {
 });
 
 
-$factory->define(App\Book::class, function (Faker\Generator $faker){
+$factory->define(App\Models\Book::class, function (Faker\Generator $faker){
+    $users = app(\App\Repositories\UserRepository::class);
+    $userId = $users->all()->random()->id;
+
    return [
      'title' =>  $faker->sentence(4, true),
        'subtitle' => $faker->paragraph(2, true),
        'price' => $faker->randomFloat(2, 1, 1000),
-       'user_id' => rand(1,2)
+       'user_id' => $userId
    ];
 });

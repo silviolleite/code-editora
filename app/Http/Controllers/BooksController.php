@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
+use App\Criteria\FindByAuthorCriteria;
+use App\Criteria\FindByTitleCriteria;
 use App\Http\Requests\BookRequest;
+use App\Http\Requests\BookUpdateRequest;
 use App\Repositories\BookRepository;
 
 class BooksController extends Controller
@@ -26,6 +28,8 @@ class BooksController extends Controller
      */
     public function index()
     {
+        $this->repository->pushCriteria(new FindByTitleCriteria('Teste'))
+            ->pushCriteria(new FindByAuthorCriteria());
         $books = $this->repository->paginate(15);
         return view('books.index', compact('books'));
     }
@@ -48,7 +52,9 @@ class BooksController extends Controller
      */
     public function store(BookRequest $request)
     {
-        $this->repository->create($request->all());
+        $data = $request->all();
+        $data['user_id'] = \Auth::user()->id;
+        $this->repository->create($data);
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro cadastrado com sucesso.');
         return redirect()->to($url);
@@ -70,13 +76,14 @@ class BooksController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\BookRequest $request
-     * @param Book $book
+     * @param BookUpdateRequest $request
+     * @param $id
      * @return \Illuminate\Http\Response
      */
-    public function update(BookRequest $request, Book $book)
+    public function update(BookUpdateRequest $request, $id)
     {
-        $this->repository->update($request->all(), $book->id);
+        $data = $request->except(['user_id']);
+        $this->repository->update($data, $id);
         $url = $request->get('redirect_to', route('books.index'));
         $request->session()->flash('message', 'Livro alterado com sucesso.');
         return redirect()->to($url);
