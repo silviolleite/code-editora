@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BookRequest;
 use App\Http\Requests\BookUpdateRequest;
 use App\Repositories\BookRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\Request;
 
 class BooksController extends Controller
@@ -13,10 +14,15 @@ class BooksController extends Controller
      * @var BookRepository
      */
     private $repository;
+    /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
 
-    public function __construct(BookRepository $repository)
+    public function __construct(BookRepository $repository, CategoryRepository $categoryRepository)
     {
         $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
     }
 
 
@@ -39,7 +45,8 @@ class BooksController extends Controller
      */
     public function create()
     {
-        return view('books.create');
+        $categories = $this->categoryRepository->pluck('name', 'id');
+        return view('books.create', compact('categories'));
     }
 
     /**

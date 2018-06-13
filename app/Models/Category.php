@@ -38,4 +38,8 @@ class Category extends Model implements TableInterface
                 return $this->name;
         }
     }
+
+    public function books(){
+        return $this->belongsToMany(Book::class);
+    }
 }

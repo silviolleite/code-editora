@@ -58,4 +58,8 @@ class Book extends Model implements TableInterface
                 return $this->user->name;
         }
     }
+
+    public function categories(){
+        return $this->belongsToMany(Category::class);
+    }
 }
