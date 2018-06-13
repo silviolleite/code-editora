@@ -75,7 +75,8 @@ class BooksController extends Controller
     public function edit($id)
     {
         $book = $this->repository->find($id);
-        return view('books.edit', compact('book'));
+        $categories = $this->categoryRepository->pluck('name', 'id');
+        return view('books.edit', compact('book', 'categories'));
     }
 
     /**

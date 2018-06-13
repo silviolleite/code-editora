@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Bootstrapper\Interfaces\TableInterface;
+use Collective\Html\Eloquent\FormAccessible;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -27,6 +28,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Book extends Model implements TableInterface
 {
+    use FormAccessible;
+
+
     protected $fillable = [
         'title',
         'subtitle',
@@ -36,6 +40,15 @@ class Book extends Model implements TableInterface
 
     public function user(){
         return $this->belongsTo('App\Models\User');
+    }
+
+    public function categories(){
+        return $this->belongsToMany(Category::class);
+    }
+
+    //o nome da função mutator é importante para o helper fo form
+    public function formCategoriesAttribute(){
+        return $this->categories->pluck('id')->all();
     }
 
     public function getTableHeaders()
@@ -59,7 +72,5 @@ class Book extends Model implements TableInterface
         }
     }
 
-    public function categories(){
-        return $this->belongsToMany(Category::class);
-    }
+
 }
