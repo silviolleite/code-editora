@@ -30,5 +30,12 @@ class BooksTrashedController extends Controller
         return view('trashed.books.index', compact('books', 'search'));
     }
 
+    public function show($id){
+        $this->repository->onlyTrashed();
+        $book = $this->repository->find($id);
+
+        return view('trashed.books.show', compact('book'));
+    }
+
 
 }

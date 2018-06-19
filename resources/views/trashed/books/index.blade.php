@@ -19,7 +19,7 @@
             ->striped()
             ->bordered()
             ->callback('Ações', function ($field, $book){
-                $linkEdit = route('books.edit', ['book' => $book->id]);
+                $linkView = route('trashed.books.show', ['book' => $book->id]);
                 $linkDestroy = route('books.destroy', ['category' => $book->id]);
                 $index = "delete-form-{$book->id}";
                 $form = Form::open(['route' => ['books.destroy', 'book' => $book->id], 'method' => 'DELETE', 'id' => $index, 'style' => 'display:none']).Form::close();
@@ -28,7 +28,7 @@
                     'onclick' => "event.preventDefault();document.getElementById(\"{$index}\").submit()"
                 ]);
                 return '<ul class="list-inline">'.
-                        '<li>'.Button::link('Editar')->asLinkTo($linkEdit).'</li>'.
+                        '<li>'.Button::link(Icon::create('eye-open').' Visualizar')->asLinkTo($linkView).'</li>'.
                         '<li>|</li>'.
                         '<li>'.$ancorDestroy.'</li>'.
                         '</ul>'.
