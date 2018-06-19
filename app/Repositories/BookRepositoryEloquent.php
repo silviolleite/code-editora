@@ -15,6 +15,7 @@ use App\Models\Book;
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
     use CriteriaOnlyTrashedTrait;
+    use RepositoryRestoreTrait;
     protected $fieldSearchable = [
       'title' => 'like',
         'user.name'

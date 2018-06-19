@@ -11,7 +11,10 @@ use Prettus\Repository\Contracts\RepositoryInterface;
  *
  * @package namespace App\Repositories;
  */
-interface BookRepository extends RepositoryInterface, RepositoryCriteriaInterface,CriteriaOnlyTrashedInterface
+interface BookRepository extends RepositoryInterface,
+    RepositoryCriteriaInterface,
+    CriteriaOnlyTrashedInterface,
+    RepositoryRestoreInterface
 {
     //
 }
