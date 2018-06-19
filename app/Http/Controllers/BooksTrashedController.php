@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
 use App\Repositories\BookRepository;
 use Illuminate\Http\Request;
 
@@ -27,8 +26,7 @@ class BooksTrashedController extends Controller
     public function index(Request $request)
     {
         $search = $request->get('search');
-        //$books = $this->repository->paginate(15);
-        $books = Book::onlyTrashed()->paginate(15);
+        $books = $this->repository->onlyTrashed()->paginate(15);
         return view('trashed.books.index', compact('books', 'search'));
     }
 
