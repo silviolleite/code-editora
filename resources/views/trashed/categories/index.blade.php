@@ -3,34 +3,31 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <h3>Lixeira de Livros</h3>
+            <h3>Lixeira de Categorias</h3>
         </div>
         <div class="row">
             <div class="col-md-12">
-                {!! Form::model(compact('search'), ['class' => 'form-inline', 'method' => 'GET', 'style' => 'margin-bottom: 30px']) !!}
-                {!! Form::label('search', 'Pesquisar livros: ', ['class' => 'control-label']) !!}
+                {!! Form::model(compact('search'), ['class' => 'form-inline', 'method' => 'GET']) !!}
+                {!! Form::label('search', 'Pesquisar Categorias: ', ['class' => 'control-label']) !!}
                 {!! Form::text('search', null, ['class' => 'form-control', 'autofocus']) !!}
                 {!! Button::primary('Buscar')->submit() !!}
                 {!! Form::close()!!}
             </div>
         </div>
         <div class="row">
-            @if($books->count() > 0)
-                {!! Table::withContents($books->items())
+            @if($categories->count() > 0)
+                {!! Table::withContents($categories->items())
                 ->striped()
                 ->bordered()
-                ->callback('Ações', function ($field, $book){
-                    $linkView = route('trashed.books.show', ['book' => $book->id]);
-                    $restoreForm = route('trashed.books.update', ['book' => $book->id]);
-                    $index = "update-form-{$book->id}";
-                    $form = Form::open(['route' => ['trashed.books.update', 'book' => $book->id], 'method' => 'PUT', 'id' => $index, 'style' => 'display:none;']).Form::hidden('redirect_to', URL::current()).Form::close();
+                ->callback('Ações', function ($field, $category){
+                    $restoreForm = route('trashed.categories.update', ['category' => $category->id]);
+                    $index = "update-form-{$category->id}";
+                    $form = Form::open(['route' => ['trashed.categories.update', 'category' => $category->id], 'method' => 'PUT', 'id' => $index, 'style' => 'display:none;']).Form::hidden('redirect_to', URL::current()).Form::close();
                     $ancorRestore = Button::link(Icon::create('repeat').' Restaurar')->asLinkTo($restoreForm)
                     ->addAttributes([
                         'onclick' => "event.preventDefault();document.getElementById(\"{$index}\").submit()"
                     ]);
                     return '<ul class="list-inline">'.
-                            '<li>'.Button::link(Icon::create('eye-open').' Visualizar')->asLinkTo($linkView).'</li>'.
-                            '<li>|</li>'.
                             '<li>'.$ancorRestore.'</li>'.
                             '</ul>'.
                             $form;
@@ -45,7 +42,7 @@
 
             @endif
 
-            {{ $books->links() }}
+            {{ $categories->links() }}
         </div>
     </div>
 @endsection

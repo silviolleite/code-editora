@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Criteria\CriteriaOnlyTrashedTrait;
+use App\Criteria\CriteriaTrashedTrait;
 use Prettus\Repository\Eloquent\BaseRepository;
 use Prettus\Repository\Criteria\RequestCriteria;
 use App\Models\Book;
@@ -14,11 +14,12 @@ use App\Models\Book;
  */
 class BookRepositoryEloquent extends BaseRepository implements BookRepository
 {
-    use CriteriaOnlyTrashedTrait;
+    use CriteriaTrashedTrait;
     use RepositoryRestoreTrait;
     protected $fieldSearchable = [
       'title' => 'like',
-        'user.name'
+        'user.name',
+        'categories.name'
     ];
 
     public function create(array $attributes)

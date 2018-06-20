@@ -28,8 +28,17 @@
 
         $links = Navigation::links([
             [
-                'link' => route('categories.index'),
-                'title' => 'Categoria'
+                'Categorias',
+                [
+                    [
+                        'link' => route('categories.index'),
+                        'title' => 'Listar'
+                    ],
+                    [
+                        'link' => route('trashed.categories.index'),
+                        'title' => 'Lixeira'
+                    ]
+                ]
             ],
             [
                 'Livros',

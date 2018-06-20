@@ -46,7 +46,7 @@ class Book extends Model implements TableInterface
     }
 
     public function categories(){
-        return $this->belongsToMany(Category::class);
+        return $this->belongsToMany(Category::class)->withTrashed();
     }
 
     //o nome da função mutator é importante para o helper fo form
