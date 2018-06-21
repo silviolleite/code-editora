@@ -1,0 +1,3 @@
+[submodule "Modules/CodeEduBook"]
+	path = Modules/CodeEduBook
+	url = git@github.com:silviolleite/CodeEduBook.git
