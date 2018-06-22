@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "33d2d32af323edeb5ce34f6399bc587d",
+    "content-hash": "9f0aba5bd11195d92d6054e130faad34",
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -1829,6 +1829,41 @@
                 "uuid"
             ],
             "time": "2018-01-20T00:28:24+00:00"
+        },
+        {
+            "name": "silviolleite/codeedubook",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/silviolleite/CodeEduBook.git",
+                "reference": "c91830b58ad4aa2c7aa90f3b97a36b98fb033bae"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/silviolleite/CodeEduBook/zipball/c91830b58ad4aa2c7aa90f3b97a36b98fb033bae",
+                "reference": "c91830b58ad4aa2c7aa90f3b97a36b98fb033bae",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/dbal": "~2.3"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "CodeEduBook\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Silvio Luis Leite",
+                    "email": "silviolleite@gmail.com"
+                }
+            ],
+            "time": "2018-06-21T14:23:56+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -4413,11 +4448,11 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "stable",
+    "minimum-stability": "dev",
     "stability-flags": {
         "nwidart/laravel-modules": 20
     },
-    "prefer-stable": false,
+    "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": ">=5.6.4"
