@@ -24,7 +24,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Book[] $books
+ * @property-read \Illuminate\Database\Eloquent\Collection|\CodeEduBook\Models\Book[] $books
  */
 class User extends Authenticatable
 {
@@ -49,6 +49,6 @@ class User extends Authenticatable
     ];
 
     public function books(){
-        return $this->hasMany('App\Models\Book', 'user_id');
+        return $this->hasMany('CodeEduBook\Models\Book', 'user_id');
     }
 }
