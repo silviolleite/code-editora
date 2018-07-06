@@ -1,3 +1,6 @@
 [submodule "Modules/CodeEduBook"]
 	path = Modules/CodeEduBook
 	url = git@github.com:silviolleite/CodeEduBook.git
+[submodule "Modules/AuthUser"]
+	path = Modules/AuthUser
+	url = git@github.com:silviolleite/AuthUser.git

@@ -184,7 +184,7 @@ return [
         App\Providers\RouteServiceProvider::class,
         App\Providers\RepositoryServiceProvider::class,
         \CodeEduBook\Providers\CodeEduBookServiceProvider::class,
-
+        \AuthUser\Providers\AuthUserServiceProvider::class,
     ],
 
     /*
